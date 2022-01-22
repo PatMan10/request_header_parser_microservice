@@ -51,7 +51,7 @@ export const page = (body: string) => `
   <html>
     <head>
       <meta charset="utf-8" />
-      <title>Timestamp Service</title>
+      <title>Request Header Parser Service</title>
       <style>${style()}</style>
     </head>
     ${body}
@@ -64,28 +64,28 @@ const a = (url: string, label: string) =>
 export const homePage = () =>
   page(`
     <header class="flex-col-aiC">
-      <h1>Timestamp Microservice</h1>
+      <h1>Request Header Parser Microservice</h1>
     </header>
 
     <div class="flex-col-aiC">
       <h2>Example Usage:</h2>
       ${
     a(
-      config.BASE_URL + URLs.getTimestamp("2015-12-25"),
-      config.BASE_URL + URLs.getTimestamp("2015-12-25"),
-    )
-  }
-      ${
-    a(
-      config.BASE_URL + URLs.getTimestamp("1451001600000"),
-      config.BASE_URL + URLs.getTimestamp("1451001600000"),
+      config.BASE_URL + URLs.GET_HEADER_INFO,
+      config.BASE_URL + URLs.GET_HEADER_INFO,
     )
   }
     </div>
 
     <div class="flex-col-aiC">
       <h2>Example Output:</h2>
-      <span class="example">{ "unix": 1451001600000, "utc": "Fri, 25 Dec 2015 00:00:00 GMT" }</span>
+      <span class="example">
+        {
+          "ipaddress":"159.20.14.100",
+          "language":"en-US,en;q=0.5",
+          "software":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0"
+        }
+      </span>
       <span>By ${a("https://github.com/PatMan10", "PatMan10")}</span>
     </div>
 `);

@@ -1,23 +1,23 @@
 // urls
-export enum URLPlaceHolder {
-  DATE = ":date?",
+
+export enum HeaderKeys {
+  LANGUAGE = "accept-language",
+  SOFTWARE = "user-agent",
 }
 
 export class URLs {
   static readonly WILD = "*";
   static readonly INDEX = "/";
-  static readonly GET_TIMESTAMP = `/api/${URLPlaceHolder.DATE}`;
-  static readonly getTimestamp = (date?: string) =>
-    URLs.GET_TIMESTAMP.replace(URLPlaceHolder.DATE, date || "");
+  static readonly GET_HEADER_INFO = `/api/whoami`;
 }
 
 export class ErrorMessages {
   static readonly INTERNAL_SERVER_ERROR =
     "Uh oh, some unexpected error ocurred...";
-  static readonly INVALID_DATE = "Invalid Date";
 }
 
 // logger
+
 class Logger {
   info(...data: unknown[]) {
     console.info(...data);

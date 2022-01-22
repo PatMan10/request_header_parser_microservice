@@ -1,8 +1,8 @@
 import { logger } from "./utils.ts";
 
 export enum EnvKeys {
-  ENV = "TIMESTAMP_SERVICE_ENV",
-  PORT = "TIMESTAMP_SERVICE_PORT",
+  ENV = "REQUEST_HEADER_PARSER_SERVICE_ENV",
+  PORT = "REQUEST_HEADER_PARSER_SERVICE_PORT",
 }
 
 export enum Env {
@@ -42,7 +42,7 @@ export const getConfig = (env: Env) => {
       return new Config(
         undefined,
         undefined,
-        "https://pm10-timestamp-service.deno.dev",
+        "https://pm10-request-header-parser-service.deno.dev",
       );
 
     default:

@@ -23,16 +23,10 @@ export const eCat = (handler: MiddlewareFun) =>
   };
 
 export const eHandler = (
-  error: Error,
   _req: OpineRequest,
   res: OpineResponse,
   _next: NextFunction,
 ) => {
-  if (error.message === ErrorMessages.INVALID_DATE) {
-    res.status = StatusCodes.BAD_REQUEST;
-    res.send({ error: error.message });
-  } else {
-    res.status = StatusCodes.INTERNAL_SERVER_ERROR;
-    res.send({ error: ErrorMessages.INTERNAL_SERVER_ERROR });
-  }
+  res.status = StatusCodes.INTERNAL_SERVER_ERROR;
+  res.send({ error: ErrorMessages.INTERNAL_SERVER_ERROR });
 };

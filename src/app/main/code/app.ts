@@ -7,9 +7,9 @@ import {
 } from "../../../deps/prod.ts";
 import config from "./config.ts";
 import { eCat, eHandler } from "./middleware.ts";
-import { Timestamp } from "./models.ts";
+import { RequestMeta } from "./models.ts";
 import { homePage } from "./ui.ts";
-import { URLs } from "./utils.ts";
+import { HeaderKeys, URLs } from "./utils.ts";
 import { logger } from "./utils.ts";
 
 const router = Router();
@@ -19,11 +19,14 @@ router.get(URLs.INDEX, (_, res) => {
 });
 
 router.get(
-  URLs.GET_TIMESTAMP,
+  URLs.GET_HEADER_INFO,
   eCat((req, res) => {
-    const { date } = req.params;
-    const timestamp = new Timestamp(date);
-    res.send(timestamp);
+    const reqMeta = new RequestMeta(
+      (req.conn.remoteAddr as any)["hostname"],
+      req.headers.get(HeaderKeys.LANGUAGE) || undefined,
+      req.headers.get(HeaderKeys.SOFTWARE) || undefined,
+    );
+    res.send(reqMeta);
   }),
 );
 
