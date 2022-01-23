@@ -22,9 +22,9 @@ router.get(
   URLs.GET_HEADER_INFO,
   eCat((req, res) => {
     const reqMeta = new RequestMeta(
-      (req.conn.remoteAddr as any)["hostname"],
-      req.headers.get(HeaderKeys.LANGUAGE) || undefined,
-      req.headers.get(HeaderKeys.SOFTWARE) || undefined,
+      req.ip,
+      req.get(HeaderKeys.LANGUAGE) || undefined,
+      req.get(HeaderKeys.SOFTWARE) || undefined,
     );
     res.send(reqMeta);
   }),
