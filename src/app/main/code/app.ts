@@ -23,8 +23,8 @@ router.get(
   eCat((req, res) => {
     const reqMeta = new RequestMeta(
       req.ip,
-      req.get(HeaderKeys.LANGUAGE) || undefined,
-      req.get(HeaderKeys.SOFTWARE) || undefined,
+      req.get(HeaderKeys.LANGUAGE),
+      req.get(HeaderKeys.SOFTWARE),
     );
     res.send(reqMeta);
   }),
