@@ -7,8 +7,8 @@ import { logger } from "./utils.ts";
 const app = new Application();
 
 app.use(errorHandler);
-app.use(reqTimer);
 app.use(reqLogger);
+app.use(reqTimer);
 app.use(cors());
 app.use(controller.routes());
 app.use(controller.allowedMethods());
