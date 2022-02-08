@@ -1,5 +1,5 @@
 import { StatusCodes } from "../../../deps/prod.ts";
-import { Rhum, SuperDeno, superdeno } from "../../../deps/dev.ts";
+import { Rhum, superoak } from "../../../deps/dev.ts";
 import app from "../../main/code/app.ts";
 import { URLs } from "../../main/code/utils.ts";
 import { RequestMeta } from "../../main/code/models.ts";
@@ -11,17 +11,9 @@ Rhum.testPlan(
   title,
   () => {
     console.log(title);
-    let superD: SuperDeno;
-
-    Rhum.beforeAll(() => {
-      superD = superdeno(app);
-    });
-
-    Rhum.afterAll(() => {
-    });
 
     Rhum.testSuite(`---------- GET ${URLs.GET_HEADER_INFO} ----------`, () => {
-      const exec = async () => await superD.get(URLs.GET_HEADER_INFO);
+      const exec = async () => (await superoak(app)).get(URLs.GET_HEADER_INFO);
 
       Rhum.testCase("200 success, return timestamp\n", async () => {
         const res = await exec();

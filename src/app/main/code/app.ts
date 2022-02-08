@@ -1,50 +1,25 @@
-import {
-  cors,
-  opine,
-  ReasonPhrases,
-  Router,
-  StatusCodes,
-} from "../../../deps/prod.ts";
+import { Application, cors } from "../../../deps/prod.ts";
 import config from "./config.ts";
-import { eCat, eHandler } from "./middleware.ts";
-import { RequestMeta } from "./models.ts";
-import { homePage } from "./ui.ts";
-import { HeaderKeys, URLs } from "./utils.ts";
+import controller from "./controller.ts";
+import { errorHandler, notFound, reqLogger, reqTimer } from "./middleware.ts";
 import { logger } from "./utils.ts";
 
-const router = Router();
+const app = new Application();
 
-router.get(URLs.INDEX, (_, res) => {
-  res.send(homePage());
-});
-
-router.get(
-  URLs.GET_HEADER_INFO,
-  eCat((req, res) => {
-    const reqMeta = new RequestMeta(
-      req.ip,
-      req.get(HeaderKeys.LANGUAGE),
-      req.get(HeaderKeys.SOFTWARE),
-    );
-    res.send(reqMeta);
-  }),
-);
-
-router.get(URLs.WILD, (_, res) => {
-  res.status = StatusCodes.NOT_FOUND;
-  res.send(ReasonPhrases.NOT_FOUND);
-});
-
-const app = opine();
+app.use(errorHandler);
+app.use(reqTimer);
+app.use(reqLogger);
 app.use(cors());
-app.use(router);
-app.use(eHandler);
+app.use(controller.routes());
+app.use(controller.allowedMethods());
+app.use(notFound);
 
 export default app;
 
 if (import.meta.main) {
-  app.listen(config.PORT, () => {
+  app.addEventListener("listen", () => {
     logger.info(`timestamp service running...`);
     config.display();
   });
+  app.listen({ port: config.PORT });
 }
