@@ -1,4 +1,4 @@
-import { Router } from "../../../deps/prod.ts";
+import { Router } from "../../deps.ts";
 import { HeaderKeys, URLs } from "./utils.ts";
 import { IndexPage } from "./ui.ts";
 import { RequestMeta } from "./models.ts";

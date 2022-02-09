@@ -1,5 +1,4 @@
-import { StatusCodes } from "../../../deps/prod.ts";
-import { Rhum, superoak } from "../../../deps/dev.ts";
+import { Rhum, StatusCodes, superoak } from "../../deps.ts";
 import app from "../../main/code/app.ts";
 import { URLs } from "../../main/code/utils.ts";
 import { RequestMeta } from "../../main/code/models.ts";
